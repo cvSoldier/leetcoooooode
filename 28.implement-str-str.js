@@ -126,20 +126,50 @@
 //   return -1
 // }
 
+// 其实也是暴力匹配
+// var strStr = function(haystack, needle) {
+//   if (needle == "") return 0;
+//   let j = 0;
+//   for (let i = 0; i < haystack.length; i++) {
+//     if (haystack[i] == needle[j]) {
+//       if (j == needle.length - 1) return i-j;
+//       j++;
+//     }
+//     else {
+//       i -= j, j = 0;
+//     }
+//   }
+//   return -1;
+// };
+
+
 var strStr = function(haystack, needle) {
-  if (needle == "") return 0;
-  let j = 0;
-  for (let i = 0; i < haystack.length; i++) {
-    if (haystack[i] == needle[j]) {
-      if (j == needle.length - 1) return i-j;
-      j++;
+  if (needle === '') return 0
+  function findChar(str, char) {
+    for(let i = 0; i < str.length; i ++) {
+      if(str[i] === char) return i
     }
-    else {
-      i -= j, j = 0;
+    return -1
+  }
+  let j = 0
+  for(let i = 0; i < haystack.length;) {
+    if (haystack[i] == needle[j]) {
+      if (j == needle.length - 1) return i - j;
+      j++;
+      i++
+    } else {
+      let index = findChar(needle, haystack[i + needle.length])
+      if(index === -1) {
+        i += needle.length + 1
+      } else {
+        i += needle.length - index
+      }
+      j = 0
     }
   }
-  return -1;
+  return -1
 };
 // console.log(strStr('headllo', 'dll'));
+// console.log(strStr('mississippi', 'issi'));
 // @lc code=end
 
