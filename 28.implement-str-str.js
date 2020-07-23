@@ -144,25 +144,24 @@
 
 
 var strStr = function(haystack, needle) {
-  if (needle === '') return 0
-  function findChar(str, char) {
-    for(let i = 0; i < str.length; i ++) {
-      if(str[i] === char) return i
-    }
-    return -1
+  if (needle == '') return 0
+
+  var map = {}
+  var len = needle.length
+  for(var i = 0; i < len; i++) {
+    map[needle[i]] = i
   }
-  let j = 0
-  for(let i = 0; i < haystack.length;) {
-    if (haystack[i] == needle[j]) {
-      if (j == needle.length - 1) return i - j;
+  var j = 0
+  for(var i = 0; i < haystack.length;) {
+    if (haystack[i + j] == needle[j]) {
+      if (j == len - 1) return i;
       j++;
-      i++
     } else {
-      let index = findChar(needle, haystack[i + needle.length])
-      if(index === -1) {
-        i += needle.length + 1
+      var index = map[haystack[i + len]]
+      if(index == undefined) {
+        i += len + 1
       } else {
-        i += needle.length - index
+        i += len - index
       }
       j = 0
     }
@@ -171,5 +170,7 @@ var strStr = function(haystack, needle) {
 };
 // console.log(strStr('headllo', 'dll'));
 // console.log(strStr('mississippi', 'issi'));
+// console.log(strStr('abcde', 'cd'));
+// console.log(strStr('mississippi', 'pi'));
 // @lc code=end
 
