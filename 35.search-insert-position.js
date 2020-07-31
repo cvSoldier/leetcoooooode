@@ -56,25 +56,20 @@
  * @return {number}
  */
 var searchInsert = function(nums, target) {
-  let begin = 0, end = nums.length - 1, mid, min = nums[end] - nums[begin], minIndex = 0
-  while(begin <= end) {
-    // debugger
-    mid = Math.ceil((begin + end) / 2)
-    if(nums[mid] === target) return mid
-    else if(nums[mid] > target) {
-      if(min > nums[mid] - target) {
-        min = nums[mid] - target
-        minIndex = mid - 1
-        if(minIndex == -1) minIndex = 0
-      }
-      end = mid - 1
-    } else {
-      min = Math.min(min, target - nums[mid])
-      minIndex = mid + 1
+  let begin = 0,
+    end = nums.length - 1,
+    mid = 0
+  while (begin <= end) {
+    mid = Math.floor((begin + end) / 2)
+    if (nums[mid] == target) {
+      return mid
+    } else if (target > nums[mid]) {
       begin = mid + 1
+    } else if (target < nums[mid]) {
+      end = mid - 1
     }
   }
-  return minIndex
+  return begin 
 };
 // console.log(searchInsert([1], 0));
 // console.log(searchInsert([1,3], 2));
