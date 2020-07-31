@@ -60,7 +60,7 @@ var searchInsert = function(nums, target) {
     end = nums.length - 1,
     mid = 0
   while (begin <= end) {
-    mid = ((right - left) >> 1) + left;
+    mid = ((end - begin) >> 1) + begin;
     if (nums[mid] == target) {
       return mid
     } else if (target > nums[mid]) {
