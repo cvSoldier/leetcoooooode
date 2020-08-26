@@ -69,22 +69,34 @@
  * @param {number[]} prices
  * @return {number}
  */
+// var maxProfit = function(prices) {
+//   var begin = 0, total = 0
+//   for(var end = 1; end < prices.length; end++) {
+//     if(prices[end] > prices[begin]) {
+//       if(prices[end + 1] && prices[end + 1] > prices[end]) {
+//         continue
+//       } else {
+//         total += prices[end] - prices[begin]
+//         begin = end
+//       }
+//     } else {
+//       begin = end
+//     }
+//   }
+//   return total
+// };
+
+// 上面代码的第二个continue的 if 没有必要 
+
 var maxProfit = function(prices) {
-  var begin = 0, total = 0
-  for(var end = 1; end < prices.length; end++) {
-    if(prices[end] > prices[begin]) {
-      if(prices[end + 1] && prices[end + 1] > prices[end]) {
-        continue
-      } else {
-        total += prices[end] - prices[begin]
-        begin = end
-      }
-    } else {
-      begin = end
+  var begin = 0, total = 0, len = prices.length;
+  for(; begin < len - 1; begin++) {
+    if(prices[begin + 1] - prices[begin] > 0) {
+      total += prices[begin + 1] - prices[begin]
     }
   }
   return total
-};
+}
 // console.log(maxProfit([1,2,3,4,5]));
 // console.log(maxProfit([7,1,5,3,6,4]));
 // console.log(maxProfit([7,6,4,3,1]));
