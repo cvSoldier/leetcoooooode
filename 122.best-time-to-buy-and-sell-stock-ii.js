@@ -88,14 +88,25 @@
 
 // 上面代码的第二个continue的 if 没有必要 
 
+// var maxProfit = function(prices) {
+//   var begin = 0, total = 0, len = prices.length;
+//   for(; begin < len - 1; begin++) {
+//     if(prices[begin + 1] - prices[begin] > 0) {
+//       total += prices[begin + 1] - prices[begin]
+//     }
+//   }
+//   return total
+// }
+
+// dp
+
 var maxProfit = function(prices) {
-  var begin = 0, total = 0, len = prices.length;
-  for(; begin < len - 1; begin++) {
-    if(prices[begin + 1] - prices[begin] > 0) {
-      total += prices[begin + 1] - prices[begin]
-    }
+  var T_ik0 = 0, T_ik1 = -prices[0]
+  for(var i = 1; i < prices.length; i++) {
+    T_ik0 = Math.max(T_ik0, T_ik1 + prices[i])
+    T_ik1 = Math.max(T_ik1, T_ik0 - prices[i])
   }
-  return total
+  return T_ik0
 }
 // console.log(maxProfit([1,2,3,4,5]));
 // console.log(maxProfit([7,1,5,3,6,4]));
