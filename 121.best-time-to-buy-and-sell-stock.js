@@ -47,18 +47,27 @@
  * @param {number[]} prices
  * @return {number}
  */
+// var maxProfit = function(prices) {
+//   var min = prices[0], target = 0
+//   for(var i = 1; i < prices.length; i++) {
+//     if(prices[i] < min) {
+//       min = prices[i]
+//       continue
+//     }
+//     prices[i] - min > target ? target = prices[i] - min : null
+//   }
+//   return target
+// };
+
 var maxProfit = function(prices) {
-  var min = prices[0], target = 0
+  var T_i10 = 0, T_i11 = -prices[0]
   for(var i = 1; i < prices.length; i++) {
-    if(prices[i] < min) {
-      min = prices[i]
-      continue
-    }
-    prices[i] - min > target ? target = prices[i] - min : null
+    T_i10 = Math.max(T_i10, T_i11 + prices[i])
+    T_i11 = Math.max(T_i11, - prices[i]) // 限制交易一次 所以第二个是-prices[i]
   }
-  return target
+  return T_i10
 };
-// console.log(maxProfit([7,5,4,2]));
 // console.log(maxProfit([7,1,5,3,6,4]));
+// console.log(maxProfit([7,5,4,2]));
 // @lc code=end
 
