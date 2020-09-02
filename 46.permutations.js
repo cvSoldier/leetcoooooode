@@ -37,6 +37,7 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
+// 重点：怎么前进（进入下一个状态）； 怎么回退（回到上一个状态）；什么时候停止
 var permute = function(nums) {
   var result = []
   backtrack(nums, 0, [], result)
