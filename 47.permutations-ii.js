@@ -20,17 +20,17 @@ function backtrack(nums, indexs, result, curr) {
     return
   }
   let len = nums.length
+  let popNum
   while(--len >= 0) {
     if(indexs[len]) continue
-    if(nums[len + 1] === nums[len] && !indexs[len + 1]) continue
+    if(popNum === nums[len]) continue
     indexs[len] = true
     curr.push(nums[len])
     backtrack(nums, indexs, result, curr)
     indexs[len] = false
-    curr.pop(nums[len])
+    popNum = curr.pop()
   }
 }
 // console.log(...permuteUnique([1,1,2]));
 
 // @lc code=end
-
