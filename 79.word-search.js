@@ -52,34 +52,61 @@
  * @param {string} word
  * @return {boolean}
  */
+// v1
+// var exist = function(board, word) {
+//   const begins = [], result = [false]
+//   let len1 = board.length
+//   while(--len1 >= 0) {
+//     let len2 = board[0].length
+//     while(--len2 >= 0) {
+//       if(board[len1][len2] === word[0]) begins.push([len1, len2])
+//     }
+//   }
+//   backtrack(board, word, 0, begins, board.length - 1, board[0].length - 1, result)
+//   return result[0]
+// };
+// function backtrack(board, word, wordIndex, begins, limitX, limitY, result) {
+//   if(wordIndex === word.length) {
+//     result[0] = true
+//     return
+//   }
+//   for(let i = 0; i < begins.length; ++i) {
+//     if(result[0]) break // 论剪枝的重要性
+//     let x = begins[i][0], y = begins[i][1]
+//     if(x < 0 || y < 0 || x > limitX || y > limitY) continue
+//     let tempStr = board[x][y]
+//     if(tempStr !== word[wordIndex]) continue
+//     let nexts = [[x - 1, y], [x + 1, y], [x, y - 1], [x, y + 1]]
+//     board[x][y] = undefined
+//     backtrack(board, word, wordIndex + 1, nexts, limitX, limitY, result)
+//     board[x][y] = tempStr
+//   }
+// }
 var exist = function(board, word) {
-  const begins = [], result = [false]
   let len1 = board.length
   while(--len1 >= 0) {
     let len2 = board[0].length
     while(--len2 >= 0) {
-      if(board[len1][len2] === word[0]) begins.push([len1, len2])
+      if(board[len1][len2] === word[0] && backtrack(board, word, 0, len1, len2, board.length - 1, board[0].length - 1)) return true
     }
   }
-  backtrack(board, word, 0, begins, board.length - 1, board[0].length - 1, result)
-  return result[0]
+  return false
 };
-function backtrack(board, word, wordIndex, begins, limitX, limitY, result) {
+function backtrack(board, word, wordIndex, x, y, limitX, limitY) {
   if(wordIndex === word.length) {
-    result[0] = true
-    return
+    return true
   }
-  for(let i = 0; i < begins.length; ++i) {
-    if(result[0]) break // 论剪枝的重要性
-    let x = begins[i][0], y = begins[i][1]
-    if(x < 0 || y < 0 || x > limitX || y > limitY) continue
-    let tempStr = board[x][y]
-    if(tempStr !== word[wordIndex]) continue
-    let nexts = [[x - 1, y], [x + 1, y], [x, y - 1], [x, y + 1]]
-    board[x][y] = undefined
-    backtrack(board, word, wordIndex + 1, nexts, limitX, limitY, result)
-    board[x][y] = tempStr
-  }
+
+  if(x < 0 || y < 0 || x > limitX || y > limitY) return false
+  let tempStr = board[x][y][]
+  if(tempStr !== word[wordIndex]) return false
+  board[x][y] = undefined
+  let result = backtrack(board, word, wordIndex + 1, x - 1, y, limitX, limitY)
+    || backtrack(board, word, wordIndex + 1, x + 1, y, limitX, limitY)
+    || backtrack(board, word, wordIndex + 1, x, y - 1, limitX, limitY)
+    || backtrack(board, word, wordIndex + 1, x, y + 1, limitX, limitY)
+  board[x][y] = tempStr
+  return result
 }
 
 
@@ -88,6 +115,7 @@ function backtrack(board, word, wordIndex, begins, limitX, limitY, result) {
 //   ['S','F','C','S'], 
 //   ['A','D','E','E']
 // ]
+// var word = "ABCB"
 
 // var board = [
 //   ["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],
