@@ -82,6 +82,39 @@
 //     board[x][y] = tempStr
 //   }
 // }
+
+// v2
+// var exist = function(board, word) {
+//   const begins = []
+//   let len1 = board.length
+//   while(--len1 >= 0) {
+//     let len2 = board[0].length
+//     while(--len2 >= 0) {
+//       if(board[len1][len2] === word[0]) begins.push([len1, len2])
+//     }
+//   }
+//   return backtrack(board, word, 0, begins, board.length - 1, board[0].length - 1)
+// };
+// function backtrack(board, word, wordIndex, begins, limitX, limitY) {
+//   if(wordIndex === word.length) {
+//     return true
+//   }
+//   let result = false
+//   for(let i = 0; i < begins.length; ++i) {
+//     let x = begins[i][0], y = begins[i][1]
+//     if(x < 0 || y < 0 || x > limitX || y > limitY) continue
+//     let tempStr = board[x][y]
+//     if(tempStr !== word[wordIndex]) continue
+//     let nexts = [[x - 1, y], [x + 1, y], [x, y - 1], [x, y + 1]]
+//     board[x][y] = undefined
+//     result = result || backtrack(board, word, wordIndex + 1, nexts, limitX, limitY)
+//     board[x][y] = tempStr
+//   }
+//   return result
+// }
+
+// v3
+// 上面每次多带数组参数玩泥巴的方式不可取 会增加空间复杂度的系数
 var exist = function(board, word) {
   let len1 = board.length
   while(--len1 >= 0) {
@@ -98,7 +131,7 @@ function backtrack(board, word, wordIndex, x, y, limitX, limitY) {
   }
 
   if(x < 0 || y < 0 || x > limitX || y > limitY) return false
-  let tempStr = board[x][y][]
+  let tempStr = board[x][y]
   if(tempStr !== word[wordIndex]) return false
   board[x][y] = undefined
   let result = backtrack(board, word, wordIndex + 1, x - 1, y, limitX, limitY)
