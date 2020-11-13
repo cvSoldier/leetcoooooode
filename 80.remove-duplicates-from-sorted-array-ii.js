@@ -77,21 +77,40 @@
  * @param {number[]} nums
  * @return {number}
  */
+// v1 O(n^2)
+// var removeDuplicates = function(nums) {
+//   for(let begin = end = 0; begin < nums.length; ++end) {
+//     if(nums[begin] !== nums[end]) {
+//       if(end - begin > 2) {
+//         nums.splice(begin, end - begin - 2)
+//         begin = end = begin + 2
+//       } else {
+//         begin = end
+//       }
+//     }
+//   }
+//   return nums.length
+// };
+
+// v2 无敌的原地hash O(n)
 var removeDuplicates = function(nums) {
-  for(let begin = end = 0; begin < nums.length; ++end) {
-    if(nums[begin] !== nums[end]) {
-      if(end - begin > 2) {
-        nums.splice(begin, end - begin - 2)
-        begin = end = begin + 2
-      } else {
-        begin = end
-      }
+  if(nums.length <= 2) return nums.length;
+  var begin = 1,
+    doubled = false;
+  for(var i = 1; i < nums.length; i++) {
+    if(nums[i] !== nums[i-1]) {
+      doubled = false;
+      nums[begin++] = nums[i];
+    } else if(!doubled) {
+      doubled = true;
+      nums[begin++] = nums[i];
     }
   }
+  nums.splice(begin);
+  return begin;
 };
 // const arr = [0,0,0,0,0,0,0,0,0,0,0,0]
-const arr = [0,0,0,1,1,1,1,2,3,3,3,3]
-removeDuplicates(arr)
-console.log(arr)
+// const arr = [0,0,0,1,1,1,1,2,3,3,3,3]
+// removeDuplicates(arr)
+// console.log(arr)
 // @lc code=end
-
