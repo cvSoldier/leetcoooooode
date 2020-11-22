@@ -1,3 +1,5 @@
+// https://leetcode-cn.com/problems/ways-to-make-a-fair-array/
+
 /**
  * @param {number[]} nums
  * @return {number}
