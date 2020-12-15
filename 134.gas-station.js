@@ -82,36 +82,54 @@
  * @param {number[]} cost
  * @return {number}
  */
+// 我写的
+// var canCompleteCircuit = function(gas, cost) {
+//   const minus = []
+//   let sum = 0
+//   let len = gas.length
+//   for(let i = 0; i < len; ++i) {
+//     let num = gas[i] - cost[i]
+//     minus.push(num)
+//     sum += num
+//   }
+//   if(sum < 0) {
+//     return -1
+//   }
+//   let max = 0
+//   let maxBegin = 0
+//   sum = 0
+//   for(let begin = 0, end = 0; end < len * 2; ++end) {
+//     sum += minus[end % len]
+//     if(minus[end % len] < 0 && sum < 0) {
+//       // 说明begin到 end 的值小于 0 而且是因为 end位置的值才小于 0
+//       if((sum - minus[end % len]) > max) {
+//         maxBegin = begin
+//         max = sum - minus[end % len]
+//       }
+//       begin = end + 1
+//       sum = 0
+//     } else {
+//       maxBegin = begin
+//     }
+//   }
+//   return maxBegin
+// };
+
+// 别人写的
 var canCompleteCircuit = function(gas, cost) {
-  const minus = []
-  let sum = 0
-  let len = gas.length
-  for(let i = 0; i < len; ++i) {
-    let num = gas[i] - cost[i]
-    minus.push(num)
-    sum += num
-  }
-  if(sum < 0) {
-    return -1
-  }
-  let max = 0
-  let maxBegin = 0
-  sum = 0
-  for(let begin = 0, end = 0; end < len * 2; ++end) {
-    sum += minus[end % len]
-    if(minus[end % len] < 0 && sum < 0) {
-      // 说明begin到 end 的值小于 0 而且是因为 end位置的值才小于 0
-      if((sum - minus[end % len]) > max) {
-        maxBegin = begin
-        max = sum - minus[end % len]
-      }
-      begin = end + 1
-      sum = 0
-    } else {
-      maxBegin = begin
-    }
-  }
-  return maxBegin
+  var n = gas.length;
+   var totalTank = 0;
+   var currTank = 0;
+   var start = 0;
+   for (let i = 0; i < n; ++i) {
+       totalTank += gas[i]-cost[i];
+       currTank += gas[i] - cost[i];
+       if(currTank < 0){
+           start = i+1;
+           currTank = 0;
+       }
+   }
+   return totalTank >= 0 ? start : -1;
 };
 // console.log(canCompleteCircuit([1,2,3,4,5], [3,4,5,1,2]));
 // console.log(canCompleteCircuit([2,3,4], [3,4,3]));
