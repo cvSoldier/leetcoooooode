@@ -62,7 +62,7 @@
  */
 var MinStack = function() {
   this.stack = []
-  this.originStack = []
+  this.min = []
 };
 
 /** 
@@ -70,31 +70,31 @@ var MinStack = function() {
  * @return {void}
  */
 MinStack.prototype.push = function(x) {
-  this.originStack.push(x)
   this.stack.push(x)
-  this.stack.sort((a,b) => b - a)
+  if(x <= this.min[this.min.length - 1] || this.min.length === 0) {
+    this.min.push(x)
+  }
 };
 
 /**
  * @return {void}
  */
 MinStack.prototype.pop = function() {
-  this.originStack.pop()
-  this.stack = this.originStack.slice(0).sort((a,b) => b - a)
+  if(this.stack.pop() === this.min[this.min.length - 1]) this.min.pop()
 };
 
 /**
  * @return {number}
  */
 MinStack.prototype.top = function() {
-  return this.originStack[this.originStack.length - 1]
+  return this.stack[this.stack.length - 1]
 };
 
 /**
  * @return {number}
  */
 MinStack.prototype.getMin = function() {
-  return this.stack[this.stack.length - 1]
+  return this.min[this.min.length - 1]
 };
 
 /** 
