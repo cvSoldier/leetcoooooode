@@ -54,25 +54,23 @@ BinaryHeap.prototype = {
 }
 var maxAverageRatio = function(classes, extraStudents) {
   var heap = new BinaryHeap()
+  let result = 0
   for(let i = classes.length - 1; i >= 0; --i) {
     var temp = {
       index: i,
       cha: (classes[i][0] + 1) / (classes[i][1] + 1) - classes[i][0] / classes[i][1]
     }
+    result += classes[i][0] / classes[i][1]
     heap.push(temp)
   }
   while(extraStudents) {
     var index = heap.list[0].index
     classes[index][0]++
     classes[index][1]++
+    result += heap.list[0].cha
     heap.list[0].cha = (classes[index][0] + 1) / (classes[index][1] + 1) - classes[index][0] / classes[index][1]
-    let data = heap.pop()
-    heap.push(data)
+    heap._moveDown(0)
     extraStudents--
-  }
-  let result = 0
-  for(let i = classes.length - 1; i >= 0; --i) {
-    result += classes[i][0] / classes[i][1]
   }
   return (result / classes.length).toFixed(5)
 };
