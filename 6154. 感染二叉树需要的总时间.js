@@ -56,6 +56,8 @@
     }
   }
   return deep
-  
-  // 非start节点的最深 vs start 层级 + start bfs
 };
+
+// 其他思路：非start节点最深层级 + start节点层级 vs start bfs
+// if(非start节点最深层级 + start节点层级 <= 以start为根的最深层 ) return 以start为根的最深层
+// else return 非start节点最深层级 + start节点层级
