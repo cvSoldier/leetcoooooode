@@ -61,25 +61,27 @@ var rotateRight = function(head, k) {
   if(!head) return head
 
   let len = 1
-  const startNode = new ListNode()
-  startNode.next = head
-  while(head.next) {
-    head = head.next
+  let startNode = new ListNode()
+  startNode = head
+  while(startNode.next) {
+    startNode = startNode.next
     len++
   }
   k %= len
+  // 反着转的，只 k %= len转反了
+  k = len - k
 
-  head.next = startNode.next
-  head = head.next
+  startNode.next = head
 
   while(k > 0) {
-    head = head.next
+    startNode = startNode.next
     k--
   }
-  console.log(head.val)
-  startNode.next = head.next
-  head.next = null
-  return startNode.next
+  // 存
+  const res = startNode.next
+  // 断环
+  startNode.next = null
+  return res
 };
 
 // 下面的用例会错，晕了已经，睡觉先
