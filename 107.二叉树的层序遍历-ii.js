@@ -76,9 +76,10 @@ var levelOrderBottom = function(root) {
       node.left && q.push(node.left)
       node.right && q.push(node.right)
     }
-    res.unshift(tempRes)
+    res.push(tempRes)
   }
-  return res
+  // 先 push 再 reverse 比 直接 unshift 复杂度低，unshift复杂度是 n
+  return res.reverse()
 };
 // @lc code=end
 
