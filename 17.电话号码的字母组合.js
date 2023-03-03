@@ -88,3 +88,13 @@ var letterCombinations = function(digits) {
 };
 // @lc code=end
 
+// 最近面试被问到了排列和组合的区别，写这道题的时候突然悟了，记录下心得：
+// [1,2,3]的全排列：123，132，213，231，312，321
+// [1,2,3]取两个数的组合方式：12，13，23
+// 全排列的代码：
+// `helper(cur + str[i], lastStr.slice(0, i) + lastStr.slice(i + 1))`
+// 每次递归调用只是把当前的字符串扣掉
+
+// 组合的代码：
+// `helper(cur + curArr[j], lastStr, i + 1)`
+// 每次调用，根据index来判断循环开始的index，来保证后加的字符串会越来越大，来保证“组合”
